@@ -1,5 +1,5 @@
 import { fetchProducts, fetchCategories } from './functions.js';
-
+import { saveVote } from "./firebase.js";
 /* =========================
    MENÚ RESPONSIVE
 ========================= */
@@ -147,7 +147,26 @@ const renderCategories = async () => {
 
 };
 
+const enableForm = () => {
 
+    const form = document.getElementById("form_voting");
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const selectProduct =
+            document.getElementById("select_product");
+
+        const productID = selectProduct.value;
+
+        const result = await saveVote(productID);
+
+        alert(result.message);
+
+    });
+
+};
 /* =========================
    AUTOEJECUCIÓN
 ========================= */
@@ -155,5 +174,5 @@ const renderCategories = async () => {
 
   renderProducts();
   renderCategories();
-
+  enableForm();
 })();
